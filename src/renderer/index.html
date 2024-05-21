@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html style="overflow-y: hidden;">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css 'unsafe-inline'"
+    />
+
+    <title>PowerShell AI Assistant</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
+  </head>
+
+  <body>
+    <template id="code-template">
+      <div class="field is-grouped">
+        <div class="control is-expanded">
+          <article class="message">
+
+            <div id="header" class="message-header">
+              <p>message-header</p>
+            </div>
+    
+            <div id="body" class="message-body">
+              message-body
+            </div>
+
+          </article>
+        </div>
+
+        <div class="control">
+          <button id="execute-button" class="button">Execute</button>
+        </div>
+      </div>
+    </template>
+
+    <template id="output-template">
+      <article class="message">
+
+        <div id="header" class="message-header">
+          <p>message-header</p>
+        </div>
+
+        <div id="body" class="message-body">
+          message-body
+        </div>
+
+      </article>
+    </template>
+
+    <section class="hero is-small">
+      <div class="hero-body">
+        <p class="title">PowerShell AI Assistant</p>
+      </div>
+    </section>
+    
+    <section class="section">
+      <div id="chat-container" class="container">
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="field has-addons">
+
+        <div class="control is-expanded">
+          <input id="prompt-input" class="input" type="text" placeholder="What can I do for you?">
+        </div>
+  
+        <div class="control">
+          <button id="submit-button" class="button">Submit</button>
+        </div>
+
+      </div>
+    </section>
+
+    <script type="module" src="./index.js"></script>
+  </body>
+</html>
