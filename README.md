@@ -5,8 +5,6 @@ This app lets you communicate with Gemini's API to generate and execute PowerShe
 ### REQUIREMENTS.
 
 - Node Package Manager v10.8.0.
-- Node.js v22.2.0.
-- Electron 31.0.0.
 
 ### SET-UP.
 
