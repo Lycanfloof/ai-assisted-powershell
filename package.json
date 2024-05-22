@@ -11,5 +11,8 @@
   "description": "",
   "devDependencies": {
     "electron": "^30.0.6"
+  },
+  "dependencies": {
+    "gemini-api": "^2.0.4"
   }
 }
