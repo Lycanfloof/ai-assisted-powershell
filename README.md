@@ -16,6 +16,10 @@ Create a file called ```.env``` inside the root's folder. There you want to init
 
 ```API_KEY=[PLACE YOUR API KEY HERE]```
 
+If you want to disable the API and get a default response (for testing purposes), set the ```DISABLE_API``` inside ```.env``` to 1:
+
+```DISABLE_API=1```
+
 After that, you should be good to go. To execute the application, write this command:
 
 ```npm start --env-file=.env```
