@@ -10,15 +10,15 @@ export class IndexViewModel {
         this.putMessage(crypto.randomUUID(), prompt, response, true)
     }
     
-    executeCode = (id) => {
+    executeCode = async (id) => {
         let message = this.messages.get(id)
 
         let prompt = message.header
         let code = message.body
 
-        //TODO: PowerShell's Output.
+        let response = await window.electronAPI.executeCode(code)
         
-        this.putMessage(crypto.randomUUID(), "Execution of prompt: " + prompt, "TODO: PowerShell's Output", false)
+        this.putMessage(crypto.randomUUID(), "Execution of prompt: " + prompt, response, false)
     }
 
     putMessage = (id, header, body, isExecutable) => {
