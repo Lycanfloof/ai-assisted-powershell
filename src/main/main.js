@@ -21,7 +21,7 @@ const genAI = new GoogleGenerativeAI(process.env.API_KEY);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
 const makeRequestToAPI = async (event, prompt) => {
-  if (process.env.DISABLE_API > 0) { return "```Get-Process```" }
+  if (process.env.DISABLE_API != null) { return "```Get-Process```" }
 
   const prefix = "For the following prompt, generate ONLY the code that is requested in a SINGLE file: "
   const result = await model.generateContent(prefix + prompt)

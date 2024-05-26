@@ -16,7 +16,7 @@ Create a file called ```.env``` inside the root's folder. There you want to init
 
 ```API_KEY=[PLACE YOUR API KEY HERE]```
 
-If you want to disable the API and get a default response (for testing purposes), set the ```DISABLE_API``` inside ```.env``` to 1:
+If you want to disable the API and get a default response (for testing purposes), set the ```DISABLE_API``` inside ```.env``` to any value you want. For example:
 
 ```DISABLE_API=1```
 
