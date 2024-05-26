@@ -5,9 +5,9 @@ export class IndexViewModel {
         this.messages = new ObservableDictionary()
     }
 
-    generateCode = (prompt) => {
-        //TODO: API's Response.
-        this.putMessage(crypto.randomUUID(), prompt, "TODO: API's Response.", true)
+    generateCode = async (prompt) => {
+        let response = await window.electronAPI.makeRequestToAPI(prompt)
+        this.putMessage(crypto.randomUUID(), prompt, response, true)
     }
     
     executeCode = (id) => {
