@@ -29,7 +29,7 @@ const makeRequestToAPI = async (event, prompt) => {
   const result = await model.generateContent(prefix + prompt)
   const response = result.response
   
-  return response.text().replace(/```+/g, "").trim()
+  return response.text().replace(/```+/g, "").replace(/powershell+/g, "").trim()
 }
 
 const executeCode = async (event, code) => {
