@@ -8,8 +8,8 @@ dotenv.config()
 
 const createWindow = () => {
   const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1280,
+    height: 720,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
     },
@@ -33,8 +33,7 @@ const makeRequestToAPI = async (event, prompt) => {
 
 const executeCode = async (event, code) => {
   const response = execSync("pwsh -Command " + "'" + code + "'")
-  console.log(response.toString("utf-8"))
-  return response.toString("utf-8")
+  return response.toLocaleString()
 }
 
 app.whenReady().then(() => {

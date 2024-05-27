@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html style="overflow-y:auto">
   <head>
+    <title>PowerShell AI Assistant</title>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <meta
       http-equiv="Content-Security-Policy"
       content="default-src 'self'; script-src 'self'; style-src 'self' https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css 'unsafe-inline'"
     />
 
-    <title>PowerShell AI Assistant</title>
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
+    <link rel="stylesheet" href="../../node_modules/@xterm/xterm/css/xterm.css" />
+
+    <script src="../../node_modules/@xterm/xterm/lib/xterm.js"></script>
   </head>
 
   <body>
@@ -45,7 +47,7 @@
         </div>
 
         <div id="body" class="message-body">
-          message-body
+          <div id="terminal"></div>
         </div>
 
       </article>
