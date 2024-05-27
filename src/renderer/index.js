@@ -35,7 +35,7 @@ const createCodeMessage = (header, body, onExecute) => {
     const codeMessage = codeTemplate.content.cloneNode(true)
 
     codeMessage.querySelector("#header").textContent = header
-    codeMessage.querySelector("#body").textContent = body
+    codeMessage.querySelector("#code").textContent = body
     codeMessage.querySelector("#execute-button").onclick = onExecute
 
     return codeMessage
