@@ -22,7 +22,7 @@ const genAI = new GoogleGenerativeAI(process.env.API_KEY);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
 const makeRequestToAPI = async (event, prompt) => {
-  if (process.env.DISABLE_API != null) { return "```\nGet-Process\n```".replace(/```+/g, "").trim() }
+  if (process.env.DISABLE_API != null) { return prompt.replace(/```+/g, "").trim() }
 
   const prefix = "For the following prompt, generate ONLY the PowerShell code that is requested in a SINGLE file: "
   const result = await model.generateContent(prefix + prompt)
@@ -32,8 +32,12 @@ const makeRequestToAPI = async (event, prompt) => {
 }
 
 const executeCode = async (event, code) => {
-  const response = execSync("pwsh -Command " + "'" + code + "'")
-  return response.toLocaleString()
+  let response = ""
+
+  try { response = execSync("pwsh -Command " + "'" + code + "'").toLocaleString() }
+  catch (error) { response = error.message }
+
+  return response
 }
 
 app.whenReady().then(() => {

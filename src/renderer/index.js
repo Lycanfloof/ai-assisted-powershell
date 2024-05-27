@@ -41,32 +41,14 @@ const createCodeMessage = (header, body, onExecute) => {
     return codeMessage
 }
 
-const createOutputMessage = (header, body, cols = 64) => {
+const createOutputMessage = (header, body) => {
     const outputMessage = outputTemplate.content.cloneNode(true)
 
     outputMessage.querySelector("#header").textContent = header
 
-    let formattedBody = body
-        .split("\n")
-        .map(function (value) {
-            value = value
-                .replace("\u001b[32;1m", "")
-                .replace("\u001b[0m", "")
-                .substring(0, cols)
-
-            if (value.length == cols) { return value }
-            
-            for (let index = 0; index < cols; index++) {
-                if (index > value.length - 1) { value += " " }
-            }
-
-            return value
-        })
-        .join("")
-    
-    let term = new Terminal({ cols: cols })
+    let term = new Terminal({ convertEol: true })
     term.open(outputMessage.querySelector("#terminal"))
-    term.write(formattedBody)
+    term.write(body)
 
     return outputMessage
 }
