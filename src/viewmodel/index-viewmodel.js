@@ -7,7 +7,7 @@ export class IndexViewModel {
 
     generateCode = async (prompt) => {
         let response = await window.electronAPI.makeRequestToAPI(prompt)
-        this.putMessage(crypto.randomUUID(), prompt, response, true)
+        this.putMessage(crypto.randomUUID(), prompt, response, true, true)
     }
     
     executeCode = async (id) => {
@@ -18,15 +18,27 @@ export class IndexViewModel {
 
         let response = await window.electronAPI.executeCode(code)
         
-        this.putMessage(crypto.randomUUID(), "Execution of prompt: " + prompt, response, false)
+        this.putMessage(crypto.randomUUID(), "Execution of prompt: " + prompt, response.output, false, response.isSuccessful, id)
     }
 
-    putMessage = (id, header, body, isExecutable) => {
+    remakeCode = async (id, output) => {
+        let message = this.messages.get(id)
+
+        let prompt = message.header
+        let code = message.body
+
+        let response = await window.electronAPI.remakeRequestToAPI(code, output)
+        this.putMessage(crypto.randomUUID(), prompt, response, true, true)
+    }
+
+    putMessage = (id, header, body, isExecutable, isSuccessful, linkedMessageId = null) => {
         let message = {
             id: id,
             header: header,
             body: body,
-            isExecutable: isExecutable
+            isExecutable: isExecutable,
+            isSuccessful: isSuccessful,
+            linkedMessageId: linkedMessageId
         }
         
         this.messages.put(id, message)

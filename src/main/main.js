@@ -23,7 +23,7 @@ const genAI = new GoogleGenerativeAI(process.env.API_KEY);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
 const makeRequestToAPI = async (event, prompt) => {
-  if (process.env.DISABLE_API != null) { return prompt.replace(/```+/g, "").trim() }
+  if (process.env.MAKE_DISABLE_API != null) { return prompt.replace(/```+/g, "").trim() }
 
   const prefix = "For the following prompt, generate ONLY the PowerShell code that is requested in a SINGLE file: "
   const result = await model.generateContent(prefix + prompt)
@@ -33,7 +33,6 @@ const makeRequestToAPI = async (event, prompt) => {
 }
 
 const executeCode = async (event, code) => {
-  let response = ""
   let command = ""
   let options = {}
 
@@ -44,10 +43,28 @@ const executeCode = async (event, code) => {
   else if (os.platform() == "linux") { command = "pwsh -Command " + "'" + code + "'" }
   else if (os.platform() == "darwin") { command = "pwsh -Command " + "'" + code + "'" }
 
-  try { response = execSync(command, options).toLocaleString() }
-  catch (error) { response = error.message }
+  let response = {}
+  
+  try {
+    response.output = execSync(command, options).toLocaleString()
+    response.isSuccessful = true
+  }
+  catch (error) {
+    response.output = error.message
+    response.isSuccessful = false
+  }
 
   return response
+}
+
+const remakeRequestToAPI = async (event, code, output) => {
+  if (process.env.REMAKE_DISABLE_API != null) { return prompt.replace(/```+/g, "").trim() }
+
+  const prompt = code + " This PowerShell code gave me the following error: " + output + " Generate ONLY the PowerShell code that fixes the problem in a SINGLE file."
+  const result = await model.generateContent(prompt)
+  const response = result.response
+  
+  return response.text().replace(/```+/g, "").replace(/powershell+/g, "").trim()
 }
 
 app.whenReady().then(() => {
@@ -55,6 +72,7 @@ app.whenReady().then(() => {
 
   ipcMain.handle('api-request', makeRequestToAPI)
   ipcMain.handle('code-execution', executeCode)
+  ipcMain.handle('remake-request', remakeRequestToAPI)
 
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
