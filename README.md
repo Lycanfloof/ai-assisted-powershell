@@ -16,7 +16,7 @@ This app lets you communicate with Gemini's API to generate and execute PowerShe
 
     ```API_KEY=[PLACE YOUR API KEY HERE]```
 
-3. If you want to disable the API for generation or remaking code, set the ```MAKE_DISABLE_API``` and ```REMAKE_DISABLE_API``` to any value you want, respectively. This will enable direct code execution through the user input. For example:
+3. If you want to disable the API for generation or remaking code, set the ```MAKE_DISABLE_API``` and ```REMAKE_DISABLE_API``` to any value you want inside ```.env```. This will enable direct code execution through the user input. For example:
 
     ```MAKE_DISABLE_API=1```
     ```REMAKE_DISABLE_API=1```
