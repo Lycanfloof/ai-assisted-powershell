@@ -16,7 +16,7 @@ Create a file called ```.env``` inside the root's folder. There you want to init
 
 ```API_KEY=[PLACE YOUR API KEY HERE]```
 
-If you want to disable the API for generation or remaking code, set the ```MAKE_DISABLE_API``` and ```REMAKE_DISABLE_API``` to any value you want, respectively. For example:
+If you want to disable the API for generation or remaking code, set the ```MAKE_DISABLE_API``` and ```REMAKE_DISABLE_API``` to any value you want, respectively. This will enable direct code execution through the user input. For example:
 
 ```MAKE_DISABLE_API=1```
 ```REMAKE_DISABLE_API=1```
