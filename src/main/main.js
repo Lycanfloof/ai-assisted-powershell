@@ -1,7 +1,7 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 const dotenv = require('dotenv');
 const { execSync } = require('node:child_process');
-const { GoogleGenerativeAI } = require("@google/generative-ai");
+const { GoogleGenerativeAI, HarmBlockThreshold, HarmCategory } = require("@google/generative-ai");
 const os = require('node:os'); 
 const path = require('node:path');
 
@@ -20,7 +20,15 @@ const createWindow = () => {
 };
 
 const genAI = new GoogleGenerativeAI(process.env.API_KEY);
-const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+const safetySettings = [
+  {
+    category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
+    threshold: HarmBlockThreshold.BLOCK_NONE,
+  },
+];
+
+const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash", safetySettings });
 
 const makeRequestToAPI = async (event, prompt) => {
   if (process.env.MAKE_DISABLE_API != null) { return prompt.replace(/```+/g, "").trim() }
