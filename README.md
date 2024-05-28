@@ -16,9 +16,10 @@ Create a file called ```.env``` inside the root's folder. There you want to init
 
 ```API_KEY=[PLACE YOUR API KEY HERE]```
 
-If you want to disable the API and get a default response (for testing purposes), set the ```DISABLE_API``` inside ```.env``` to any value you want. For example:
+If you want to disable the API for generation or remaking code, set the ```MAKE_DISABLE_API``` and ```REMAKE_DISABLE_API``` to any value you want, respectively. For example:
 
-```DISABLE_API=1```
+```MAKE_DISABLE_API=1```
+```REMAKE_DISABLE_API=1```
 
 After that, you should be good to go. To execute the application, write this command:
 
