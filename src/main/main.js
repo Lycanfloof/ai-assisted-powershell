@@ -2,6 +2,7 @@ const { app, BrowserWindow, ipcMain } = require('electron');
 const dotenv = require('dotenv');
 const { execSync } = require('node:child_process');
 const { GoogleGenerativeAI } = require("@google/generative-ai");
+const os = require('node:os'); 
 const path = require('node:path');
 
 dotenv.config()
@@ -33,8 +34,17 @@ const makeRequestToAPI = async (event, prompt) => {
 
 const executeCode = async (event, code) => {
   let response = ""
+  let command = ""
+  let options = {}
 
-  try { response = execSync("pwsh -Command " + "'" + code + "'").toLocaleString() }
+  if (os.platform() == "win32") {
+    command = "powershell -Command " + "'" + code + "'"
+    options = {shell: "powershell.exe"}
+  }
+  else if (os.platform() == "linux") { command = "pwsh -Command " + "'" + code + "'" }
+  else if (os.platform() == "darwin") { command = "pwsh -Command " + "'" + code + "'" }
+
+  try { response = execSync(command, options).toLocaleString() }
   catch (error) { response = error.message }
 
   return response
